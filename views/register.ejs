@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+
+<body>
+  <section>
+    <div class="container-fluid bg-secondary text-light">
+      <div class="container-lg">
+        <div class="row align-items-center justify-content-between py-1">
+          <div class="col-5 col-lg-2">
+            <img src="/assets/vitlogo.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-7 text-center">
+            <h class="fs-4">VTOP (Vellore Campus)</h>
+          </div>
+        </div>
+      </div>
+  </section>
+  <div class="container-lg">
+    <div class="row align-items-center justify-content-between lead mt-3">
+      <div class="col-lg-5">
+        <form action="/">
+          <button class="btn btn-danger">Log Out</button>
+        </form>
+      </div>
+      <div class="col-lg-5 text-end">
+        Credits: <%= student.credits %>
+      </div>
+    </div>
+    <div class="text-center fs-3 mt-4">
+      <%= course.name %>
+    </div>
+    <div class="row align-items-center justify-content-center">
+
+      <div class="col-lg-9">
+        <form action="slot" method="post">
+          <table class="table table-striped text-center my-5">
+            <thead>
+              <tr class="align-middle">
+                <th>Slot</th>
+                <th>Credits</th>
+                <th>Faculty</th>
+                <th>Seats</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% course.slots.forEach((i)=> { %>
+                <tr class="align-middle">
+                  <td>
+                    <%= i.slot %>
+                  </td>
+
+                  <td>
+                    <%= course.credits %>
+                  </td>
+
+                  <td>
+                    <%= i.faculty %>
+                  </td>
+
+                  <td>
+                    <%= i.seats %>
+                  </td>
+
+                  <td><button class="btn btn-success">Register</button></td>
+                  <input type="radio" style="display: none;" class="slotId" name="slotId" value=<%=i.slot %>>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+          <input type="hidden" name="courseId" value=<%=course.id %>>
+          <input type="hidden" name="student" value=<%=student.username %>>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = () => {
+      const btns = document.getElementsByTagName("button")
+      const radios = document.getElementsByTagName("input")
+      for (let i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+          radios[i].checked = true;
+        })
+      }
+    }
+  </script>
+
+</body>
+
+</html>
